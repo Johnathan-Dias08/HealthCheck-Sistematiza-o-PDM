@@ -1,5 +1,7 @@
 HealthCheck ODS 3: Saúde e Bem-Estar
 
+//Os prints estão na branche screenshots!
+
 Descrição do Problema
 
 Muitas pessoas não monitoram sinais básicos de saúde diariamente. Isso dificulta prevenção e acompanhamento de condições como estresse, hipertensão e taquicardia.
@@ -67,4 +69,5 @@ http://localhost:8080
 
 
 Clique em Instalar no navegador.
+
 

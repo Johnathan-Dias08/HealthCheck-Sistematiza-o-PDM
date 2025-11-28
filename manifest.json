@@ -1,0 +1,15 @@
+{
+  "name": "HealthCheck",
+  "short_name": "HealthCheck",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#e8f5f8",
+  "theme_color": "#0077a8",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthCheck</title>
+
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif; 
+      background: #e8f5f8;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 420px;
+      margin: auto;
+      box-shadow: 0 0 12px #ccc;
+    }
+    h1 { text-align: center; color: #0077a8; }
+    input, select {
+      width: 100%; padding: 10px; margin: 6px 0;
+      border: 1px solid #aaa; border-radius: 5px;
+    }
+    button {
+      width: 100%; padding: 12px; margin-top: 10px;
+      background: #0077a8; color: white;
+      border: none; border-radius: 8px;
+      cursor: pointer; font-size: 16px;
+    }
+    .log {
+      margin-top: 20px;
+      padding: 10px;
+      background: #f3f3f3;
+      border-radius: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>HealthCheck</h1>
+    <p>Registro diário de saúde</p>
+
+    <label>Batimentos cardíacos (BPM):</label>
+    <input type="number" id="bpm">
+
+    <label>Pressão arterial (Ex: 12/8):</label>
+    <input type="text" id="pressao">
+
+    <label>Como você se sente hoje?</label>
+    <select id="humor">
+      <option>Bem</option>
+      <option>Normal</option>
+      <option>Cansado</option>
+      <option>Estressado</option>
+    </select>
+
+    <button onclick="salvar()">Salvar Registro</button>
+
+    <h3>Registros:</h3>
+    <div class="log" id="log"></div>
+  </div>
+
+<script>
+  function salvar() {
+    const dados = {
+      bpm: document.getElementById('bpm').value,
+      pressao: document.getElementById('pressao').value,
+      humor: document.getElementById('humor').value,
+      data: new Date().toLocaleString()
+    };
+
+    let registros = JSON.parse(localStorage.getItem("health")) || [];
+    registros.push(dados);
+    localStorage.setItem("health", JSON.stringify(registros));
+
+    mostrarRegistros();
+  }
+
+  function mostrarRegistros() {
+    let registros = JSON.parse(localStorage.getItem("health")) || [];
+    const logDiv = document.getElementById("log");
+    logDiv.innerHTML = registros.map(r => `
+      <p><b>${r.data}</b> — BPM: ${r.bpm}, Pressão: ${r.pressao}, Humor: ${r.humor}</p>
+    `).join("");
+  }
+
+  mostrarRegistros();
+</script>
+
+</body>
+</html>
